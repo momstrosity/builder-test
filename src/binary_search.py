@@ -1,0 +1,48 @@
+def binary_search(arr, target):
+    """
+    Perform binary search on a sorted array to find the target element.
+    
+    Args:
+        arr (list): A sorted list of comparable elements
+        target: The element to search for
+    
+    Returns:
+        int: Index of the first occurrence of the target element if found, otherwise -1
+    
+    Raises:
+        TypeError: If input is not a list
+        ValueError: If the list is not sorted
+    """
+    # Check if input is a list
+    if not isinstance(arr, list):
+        raise TypeError("Input must be a list")
+    
+    # Check if list is sorted
+    if arr != sorted(arr):
+        raise ValueError("Input list must be sorted in ascending order")
+    
+    # Handle empty list
+    if not arr:
+        return -1
+    
+    # Perform binary search
+    left, right = 0, len(arr) - 1
+    result = -1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # If target is found, continue searching left to find first occurrence
+        if arr[mid] == target:
+            result = mid
+            right = mid - 1
+        
+        # If target is less than mid, search left half
+        elif target < arr[mid]:
+            right = mid - 1
+        
+        # If target is greater than mid, search right half
+        else:
+            left = mid + 1
+    
+    return result
