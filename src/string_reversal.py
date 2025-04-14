@@ -1,6 +1,7 @@
 def reverse_string(s: str) -> str:
     """
-    Reverse the given string manually, preserving all characters.
+    Reverse the given string manually, preserving all characters 
+    and maintaining original character order.
     
     Args:
         s (str): The input string to be reversed.
@@ -15,9 +16,18 @@ def reverse_string(s: str) -> str:
     if not isinstance(s, str):
         raise TypeError("Input must be a string")
     
-    # Manual string reversal using a list approach
-    reversed_chars = []
-    for i in range(len(s) - 1, -1, -1):
-        reversed_chars.append(s[i])
+    # If empty string, return immediately
+    if not s:
+        return s
     
-    return ''.join(reversed_chars)
+    # Convert string to list for manipulation
+    chars = list(s)
+    
+    # Two-pointer approach to swap characters
+    left, right = 0, len(chars) - 1
+    while left < right:
+        chars[left], chars[right] = chars[right], chars[left]
+        left += 1
+        right -= 1
+    
+    return ''.join(chars)
