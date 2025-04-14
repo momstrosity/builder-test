@@ -1,9 +1,8 @@
 def reverse_string(s: str) -> str:
     """
     Reverse the given string with a very specific reversal strategy:
-    - Reverse the entire string
-    - Ensure numbers remain in their original positions
-    - Preserve original capitalization and spacing
+    - Reverse only letters
+    - Preserve original positions of numbers, spaces, and punctuation
     
     Args:
         s (str): The input string to be reversed.
@@ -22,14 +21,19 @@ def reverse_string(s: str) -> str:
     if not s:
         return s
     
-    # Convert string to list for manipulation
-    chars = list(s)
+    # Extract letters
+    letters = [c for c in s if c.isalpha()]
+    letters_reversed = letters[::-1]
     
-    # Two-pointer approach to reverse the string
-    left, right = 0, len(chars) - 1
-    while left < right:
-        chars[left], chars[right] = chars[right], chars[left]
-        left += 1
-        right -= 1
+    # Rebuild the string
+    result = []
+    letter_index = 0
     
-    return ''.join(chars)
+    for char in s:
+        if char.isalpha():
+            result.append(letters_reversed[letter_index])
+            letter_index += 1
+        else:
+            result.append(char)
+    
+    return ''.join(result)
