@@ -1,8 +1,8 @@
 def reverse_string(s: str) -> str:
     """
     Reverse the given string with a very specific reversal strategy:
-    - Reverse the entire string
-    - Return the modified string
+    - Reverse only alphabetic characters, preserving their case
+    - Keep non-alphabetic characters in their original positions
     
     Args:
         s (str): The input string to be reversed.
@@ -21,12 +21,22 @@ def reverse_string(s: str) -> str:
     if not s:
         return s
     
-    # Convert string to list of characters and reverse
-    chars = list(s)
+    # Separate letters and non-letters
+    letters = [c for c in s if c.isalpha()]
+    non_letter_indices = [i for i, c in enumerate(s) if not c.isalpha()]
     
-    # Create result by reversing entire input
+    # Reverse letters while preserving case
+    letters_reversed = letters[::-1]
+    
+    # Rebuild the string
     result = []
-    for i in range(len(chars) - 1, -1, -1):
-        result.append(chars[i])
+    letter_index = 0
+    
+    for i, char in enumerate(s):
+        if char.isalpha():
+            result.append(letters_reversed[letter_index])
+            letter_index += 1
+        else:
+            result.append(char)
     
     return ''.join(result)
