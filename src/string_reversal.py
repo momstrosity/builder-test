@@ -20,21 +20,18 @@ def reverse_string(s: str) -> str:
     if not s:
         return s
     
-    # Separate letters and other characters
-    letters = [c for c in s if c.isalpha()]
-    non_letters = [c for c in s if not c.isalpha()]
-    
-    # Reverse letters
-    reversed_letters = letters[::-1]
+    # Separate letters and special characters
+    chars = list(s)
+    letters = [c for c in chars if c.isalpha()]
+    letters_reversed = letters[::-1]
     
     # Rebuild the string
     result = []
     letter_index = 0
-    non_letter_index = 0
     
-    for char in s:
+    for char in chars:
         if char.isalpha():
-            result.append(reversed_letters[letter_index])
+            result.append(letters_reversed[letter_index])
             letter_index += 1
         else:
             result.append(char)
