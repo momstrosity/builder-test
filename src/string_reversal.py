@@ -1,7 +1,7 @@
 def reverse_string(s: str) -> str:
     """
     Reverse the given string manually, preserving all characters 
-    and maintaining original number positions.
+    and maintaining original character order.
     
     Args:
         s (str): The input string to be reversed.
@@ -23,21 +23,18 @@ def reverse_string(s: str) -> str:
     # Convert string to list for manipulation
     chars = list(s)
     
-    # Track positions of non-digit characters
-    non_digit_positions = [i for i, char in enumerate(chars) if not char.isdigit()]
+    # Reverse individual letters and symbols, preserving number positions
+    letter_symbols = [char for char in chars if not char.isdigit()]
+    letter_symbols_reversed = letter_symbols[::-1]
     
-    # Sort non-digit characters in reverse order
-    non_digit_chars = [chars[i] for i in non_digit_positions]
-    non_digit_chars = non_digit_chars[::-1]
-    
-    # Rebuild the string with original number positions
+    # Rebuild the string
     result = []
-    non_digit_index = 0
-    for i in range(len(chars)):
-        if i in non_digit_positions:
-            result.append(non_digit_chars[non_digit_index])
-            non_digit_index += 1
+    letter_symbol_index = 0
+    for char in chars:
+        if char.isdigit():
+            result.append(char)
         else:
-            result.append(chars[i])
+            result.append(letter_symbols_reversed[letter_symbol_index])
+            letter_symbol_index += 1
     
     return ''.join(result)
